@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guten Morgen!</title>
+    <style>
+        /* Основные стили для фона и текста */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: #87CEEB; /* Небесно-голубой цвет фона */
+            overflow: hidden; /* Скрываем прокрутку */
+            position: relative; /* Для размещения облаков и солнца */
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Стили для кнопок */
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .container > div:not(.hidden) {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Анимации облаков */
+        .cloud {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 60px 60px 0 0 #ffffff;
+            width: 80px;
+            height: 80px;
+            animation: moveClouds 20s linear infinite;
+        }
+
+        .cloud:nth-child(1) {
+            top: 20%;
+            left: -10%;
+            animation-duration: 25s;
+        }
+
+        .cloud:nth-child(2) {
+            top: 40%;
+            left: -15%;
+            animation-duration: 30s;
+        }
+
+        .cloud:nth-child(3) {
+            top: 60%;
+            left: -5%;
+            animation-duration: 20s;
+        }
+
+        @keyframes moveClouds {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(110vw);
+            }
+        }
+
+        /* Анимация солнца */
+        .sun {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background-color: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 30px #FFD700;
+            animation: sunAnimation 10s infinite alternate;
+        }
+
+        @keyframes sunAnimation {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Солнце и облака -->
+    <div class="sun"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+
+    <div class="container">
+        <!-- Первый вопрос -->
+        <div id="step1">
+            <h1>Guten Morgen, Vanessa! Hast du gut geschlafen?</h1>
+            <button onclick="showError()">Nein</button>
+            <button onclick="nextStep('step2')">Ja</button>
+        </div>
+
+        <!-- Второй вопрос -->
+        <div id="step2" class="hidden">
+            <h1>Stimmt das?</h1>
+            <button onclick="showError()">Nein</button>
+            <button onclick="nextStep('step3')">Ja</button>
+        </div>
+            
+            <!-- Третий вопрос -->
+        <div id="step3" class="hidden">
+            <h1>Jetzt, da ich weis, dass du gut geschlafen hast, werde ich arbeiten gehen..</h1>
+            <button onclick="showError()">Lass mich in Ruhe!!!</button>
+            <button onclick="nextStep('step4')">Laheln</button>
+        </div>
+
+        <!-- Финальное сообщение -->
+        <div id="step4" class="hidden">
+            <h1>Schonen Tag, Vanessa!</h1>
+            <p>Du machst die Welt mit deinem Lacheln besser!;)</p>
+        </div>
+    </div>
+
+    <script>
+        function showError() {
+            alert('Das war die falsche Antwort, bitte wahlen die richtige Option :)');
+        }
+
+        function nextStep(stepId) {
+            document.querySelectorAll('.container > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            document.getElementById(stepId).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
